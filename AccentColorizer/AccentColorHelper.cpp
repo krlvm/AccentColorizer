@@ -11,26 +11,37 @@ PGetImmersiveColorFromColorSetEx pGetImmersiveColorFromColorSetEx = NULL;
 PGetImmersiveColorTypeFromName pGetImmersiveColorTypeFromName = NULL;
 PGetImmersiveUserColorSetPreference pGetImmersiveUserColorSetPreference = NULL;
 
-
 COLORREF accent;
+
 COLORREF accentLight1;
 COLORREF accentLight2;
 COLORREF accentLight3;
+
+COLORREF accentDark1;
+COLORREF accentDark2;
+COLORREF accentDark3;
 
 DWORD GetImmersiveColorRGB(const WCHAR* name)
 {
 	return pGetImmersiveColorFromColorSetEx(pGetImmersiveUserColorSetPreference(false, false), pGetImmersiveColorTypeFromName(name), false, 0);
 }
 
-void InitAccentColors()
+void UpdateAccentColors()
 {
 	HMODULE hUxTheme = LoadLibrary(TEXT("uxtheme.dll"));
-	pGetImmersiveColorFromColorSetEx = (PGetImmersiveColorFromColorSetEx)GetProcAddress(hUxTheme, MAKEINTRESOURCEA(95));
-	pGetImmersiveColorTypeFromName = (PGetImmersiveColorTypeFromName)GetProcAddress(hUxTheme, MAKEINTRESOURCEA(96));
-	pGetImmersiveUserColorSetPreference = (PGetImmersiveUserColorSetPreference)GetProcAddress(hUxTheme, MAKEINTRESOURCEA(98));
+	if (hUxTheme)
+	{
+		pGetImmersiveColorFromColorSetEx = (PGetImmersiveColorFromColorSetEx)GetProcAddress(hUxTheme, MAKEINTRESOURCEA(95));
+		pGetImmersiveColorTypeFromName = (PGetImmersiveColorTypeFromName)GetProcAddress(hUxTheme, MAKEINTRESOURCEA(96));
+		pGetImmersiveUserColorSetPreference = (PGetImmersiveUserColorSetPreference)GetProcAddress(hUxTheme, MAKEINTRESOURCEA(98));
 
-	accent = GetImmersiveColorRGB(L"ImmersiveSystemAccent");
-	accentLight1 = GetImmersiveColorRGB(L"ImmersiveSystemAccentLight1");
-	accentLight2 = GetImmersiveColorRGB(L"ImmersiveSystemAccentLight2");
-	accentLight3 = GetImmersiveColorRGB(L"ImmersiveSystemAccentLight3");
+		accent = GetImmersiveColorRGB(L"ImmersiveSystemAccent");
+		accentLight1 = GetImmersiveColorRGB(L"ImmersiveSystemAccentLight1");
+		accentLight2 = GetImmersiveColorRGB(L"ImmersiveSystemAccentLight2");
+		accentLight3 = GetImmersiveColorRGB(L"ImmersiveSystemAccentLight3");
+
+		accentDark1 = GetImmersiveColorRGB(L"ImmersiveSystemAccentDark1");
+		accentDark2 = GetImmersiveColorRGB(L"ImmersiveSystemAccentDark2");
+		accentDark3 = GetImmersiveColorRGB(L"ImmersiveSystemAccentDark3");
+	}
 }
