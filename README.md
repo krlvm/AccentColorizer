@@ -8,4 +8,5 @@ Use in combination with [ContextMenuNormalizer](https://github.com/krlvm/Context
 
 ## Special thanks
 
-Thanks to @rounk-ctrl and his work on [AccentApplicator](https://github.com/rounk-ctrl/AccentApplicator) for bringing this project back to live
+Thanks to *@mcdenis* for his idea and work on original [AccentApplicator](https://github.com/mcdenis/AccentApplicator)\
+Thanks to *@rounk-ctrl* and his work on [AccentApplicator](https://github.com/rounk-ctrl/AccentApplicator) for bringing this project back to live
