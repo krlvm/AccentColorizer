@@ -1,10 +1,15 @@
 # AccentColorizer
 
-Colorize Windows with accent color of your choice
+Colorize Windows with accent color of your choice - without modifying system files
 
-![Screenshot](https://github.com/krlvm/AccentColorizer/blob/master/.screenshots/screenshot.png?raw=true)
+AccentColorizer patches Windows theme data in-memory and recolorizes everything as soon as you change the accent color
 
 Use in combination with [ContextMenuNormalizer](https://github.com/krlvm/ContextMenuNormalizer) to make context menus look more consistent on Windows 10
+
+![Windows 11](https://github.com/krlvm/AccentColorizer/blob/master/.screenshots/win11.png?raw=true)\
+![Windows 10](https://github.com/krlvm/AccentColorizer/blob/master/.screenshots/win10.png?raw=true)\
+![Windows 8](https://github.com/krlvm/AccentColorizer/blob/master/.screenshots/win8.png?raw=true)\
+![Windows 7](https://github.com/krlvm/AccentColorizer/blob/master/.screenshots/win7.png?raw=true)
 
 ## Special thanks
 
