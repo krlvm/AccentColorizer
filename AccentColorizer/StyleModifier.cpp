@@ -2,6 +2,7 @@
 #include "BitmapHelper.h"
 #include "ColorHelper.h"
 #include "AccentColorHelper.h"
+#include <VersionHelpers.h>
 
 void StandardBitmapHandler(int* r, int* g, int* b, int* a) {
     rgb rgbOriginal = { *r, *g, *b };
@@ -92,10 +93,11 @@ void ModifyStyles() {
     }
     ModifyStyle(L"PreviewPane", 1, 1, TMT_DIBDATA); // Windows Vista/7 Explorer Bottom Details Panel
 
-    ModifyStyle(L"CommandModule", 1, 0, TMT_DIBDATA);
-    for (i = 1; i <= 10; i++)
+    for (i = 1; i <= 11; i++)
     {
+        if (i == 8) continue;
         ModifyStyle(L"CommandModule", i, 0, TMT_DIBDATA);
+        ModifyStyle(L"CommandModule", i, 1, TMT_DIBDATA);
     }
     ModifyStyle(L"ItemsView::Header", 1, 0, TMT_DIBDATA); // Explorer File Groups Header
     for (i = 1; i <= 7; i++)
@@ -131,11 +133,11 @@ void ModifyStyles() {
     ModifyStyle(L"DragDrop", 7, 0, TMT_DIBDATA);
     ModifyStyle(L"Header", 1, 0, TMT_DIBDATA);
 
-    for (i = 1; i <= 3; i++)
+    for (i = 0; i <= 3; i++)
     {
-        for (j = 1; j <= 7; j++)
+        for (j = 0; j <= 7; j++)
         {
-            ModifyStyle(L"Navigation", i, 0, j);
+            ModifyStyle(L"Navigation", i, j, j);
         }
     }
 
@@ -154,14 +156,39 @@ void ModifyStyles() {
         ModifyStyle(L"DatePicker", i, 0, 1);
     }
 
-    for (j = 0; j <= 6; j++)
-    {
-        ModifyStyle(L"Desktop::ListView", 1, j, j); // Desktop icons
-    }
-
     ModifyStyle(L"Rebar", 6, 0, 2);
     for (i = 4; i <= 6; i++) {
         ModifyStyle(L"Rebar", i, 1, 2);
         ModifyStyle(L"Rebar", i, 1, 2);
+    }
+
+    /** Tweaks for legacy components **/
+
+    ModifyStyle(L"StartPanel", 1, 1, TMT_DIBDATA);
+
+    ModifyStyle(L"StartMenu::Toolbar", 10, 1, TMT_DIBDATA);
+    ModifyStyle(L"StartMenu::Toolbar", 12, 1, TMT_DIBDATA);
+
+    for (i = 1; i <= 38; i++)
+    {
+        ModifyStyle(L"StartPanelPriv", i, 0, TMT_DIBDATA);
+    }
+
+    if (!IsWindows10OrGreater())
+    {
+        ModifyStyle(L"Menu", 14, 0, TMT_DIBDATA);
+        ModifyStyle(L"Menu", 13, 0, TMT_DIBDATA);
+        ModifyStyle(L"Menu", 12, 0, TMT_DIBDATA);
+        ModifyStyle(L"Menu", 8, 0, TMT_DIBDATA);
+        ModifyStyle(L"Menu", 7, 0, TMT_DIBDATA);
+    }
+
+    if (!IsWindows8OrGreater())
+    {
+        // Works on for all states on Windows 8+
+        for (j = 0; j <= 6; j++)
+        {
+            ModifyStyle(L"Desktop::ListView", 1, j, j); // Desktop icons
+        }
     }
 }

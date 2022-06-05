@@ -14,3 +14,4 @@
 
 #pragma comment(lib, "user32.lib")
 #pragma comment(lib, "uxtheme.lib")
+#pragma comment(lib, "dwmapi.lib")

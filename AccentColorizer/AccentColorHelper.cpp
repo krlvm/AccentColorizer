@@ -1,47 +1,85 @@
 #include "AccentColorHelper.h"
+#include <dwmapi.h>
+#include <VersionHelpers.h>
+#include "ColorHelper.h"
 
-// https://social.msdn.microsoft.com/Forums/en-US/16b70775-d87e-42d3-aa8f-41d7d6888c66/how-to-get-colors-of-default-app-mode-quotdarkquot-in-my-win32-app?forum=windowsgeneraldevelopmentissues
+#define RGB2BGR(a_ulColor) (a_ulColor & 0xFF000000) | ((a_ulColor & 0xFF0000) >> 16) | (a_ulColor & 0x00FF00) | ((a_ulColor & 0x0000FF) << 16)
 
-typedef DWORD(WINAPI* PGetImmersiveColorFromColorSetEx)(UINT dwImmersiveColorSet, UINT dwImmersiveColorType, bool bIgnoreHighContrast, UINT dwHighContrastCacheMode);
-typedef WCHAR** (WINAPI* PGetImmersiveColorNamedTypeByIndex)(UINT dwImmersiveColorType);
-typedef int (WINAPI* PGetImmersiveColorTypeFromName)(const WCHAR* name);
-typedef int (WINAPI* PGetImmersiveUserColorSetPreference)(bool bForceCheckRegistry, bool bSkipCheckOnFail);
+struct DWMCOLORIZATIONPARAMS {
+	DWORD dwColor;
+	DWORD dwAfterglow;
+	DWORD dwColorBalance;
+	DWORD dwAfterglowBalance;
+	DWORD dwBlurBalance;
+	DWORD dwGlassReflectionIntensity;
+	DWORD dwOpaqueBlend;
+};
+static HRESULT(WINAPI* DwmGetColorizationParameters)(DWMCOLORIZATIONPARAMS* color);
+bool InitializeDwmApi()
+{
+	HMODULE hDwmApi = LoadLibrary(L"dwmapi.dll");
+	if (!hDwmApi)
+	{
+		return FALSE;
+	}
+	DwmGetColorizationParameters = reinterpret_cast<decltype(DwmGetColorizationParameters)>(GetProcAddress(hDwmApi, (LPCSTR)127));
+	return TRUE;
+}
 
-PGetImmersiveColorFromColorSetEx pGetImmersiveColorFromColorSetEx = NULL;
-PGetImmersiveColorTypeFromName pGetImmersiveColorTypeFromName = NULL;
-PGetImmersiveUserColorSetPreference pGetImmersiveUserColorSetPreference = NULL;
+#include <io.h>
+#include <fcntl.h>
 
 COLORREF accent;
+COLORREF accentOpaque;
+bool accentOpaqueAvailable;
 
-COLORREF accentLight1;
-COLORREF accentLight2;
-COLORREF accentLight3;
+COLORREF _accentRgb;
+BOOL _accentOpaque;
 
-COLORREF accentDark1;
-COLORREF accentDark2;
-COLORREF accentDark3;
+DWORD SetOpacity(DWORD color, float opacity) {
+	int alpha = (color >> 24) & 0xff;
+	int r = (color >> 16) & 0xff;
+	int g = (color >> 8) & 0xff;
+	int b = color & 0xff;
 
-DWORD GetImmersiveColorRGB(const WCHAR* name)
-{
-	return pGetImmersiveColorFromColorSetEx(pGetImmersiveUserColorSetPreference(false, false), pGetImmersiveColorTypeFromName(name), false, 0);
+	int newAlpha = ceil(alpha * opacity);
+
+	UINT newColor = r << 16;
+	newColor += g << 8;
+	newColor += b;
+	newColor += (newAlpha << 24);
+
+	return (DWORD)newColor;
 }
 
 void UpdateAccentColors()
 {
-	HMODULE hUxTheme = LoadLibrary(TEXT("uxtheme.dll"));
-	if (hUxTheme)
+	DwmGetColorizationColor(&_accentRgb, &_accentOpaque);
+
+	accent = RGB2BGR(_accentRgb);
+	if (_accentOpaque)
 	{
-		pGetImmersiveColorFromColorSetEx = (PGetImmersiveColorFromColorSetEx)GetProcAddress(hUxTheme, MAKEINTRESOURCEA(95));
-		pGetImmersiveColorTypeFromName = (PGetImmersiveColorTypeFromName)GetProcAddress(hUxTheme, MAKEINTRESOURCEA(96));
-		pGetImmersiveUserColorSetPreference = (PGetImmersiveUserColorSetPreference)GetProcAddress(hUxTheme, MAKEINTRESOURCEA(98));
+		accentOpaque = accent;
+		accentOpaqueAvailable = true;
+	}
+	else
+	{
+		// Should run only on Windows Vista/7
+		// because on Windows 8+ bOpaque is always true
 
-		accent = GetImmersiveColorRGB(L"ImmersiveSystemAccent");
-		accentLight1 = GetImmersiveColorRGB(L"ImmersiveSystemAccentLight1");
-		accentLight2 = GetImmersiveColorRGB(L"ImmersiveSystemAccentLight2");
-		accentLight3 = GetImmersiveColorRGB(L"ImmersiveSystemAccentLight3");
+		accentOpaqueAvailable = false;
 
-		accentDark1 = GetImmersiveColorRGB(L"ImmersiveSystemAccentDark1");
-		accentDark2 = GetImmersiveColorRGB(L"ImmersiveSystemAccentDark2");
-		accentDark3 = GetImmersiveColorRGB(L"ImmersiveSystemAccentDark3");
+		if (InitializeDwmApi())
+		{
+			DWMCOLORIZATIONPARAMS dwmColor;
+			if (SUCCEEDED(DwmGetColorizationParameters(&dwmColor)))
+			{
+				DWORD color = dwmColor.dwColor;
+				color = (color & 0x00ffffff) | (255 << 24);
+
+				accentOpaque = RGB2BGR(RGB(GetRValue(color), GetGValue(color), GetBValue(color)));
+				accentOpaqueAvailable = true;
+			}
+		}
 	}
 }
