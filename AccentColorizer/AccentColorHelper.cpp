@@ -3,7 +3,7 @@
 #include <VersionHelpers.h>
 #include "ColorHelper.h"
 
-#define RGB2BGR(a_ulColor) (a_ulColor & 0xFF000000) | ((a_ulColor & 0xFF0000) >> 16) | (a_ulColor & 0x00FF00) | ((a_ulColor & 0x0000FF) << 16)
+#define RGB2BGR(color) (color & 0xFF000000) | ((color & 0xFF0000) >> 16) | (color & 0x00FF00) | ((color & 0x0000FF) << 16)
 
 struct DWMCOLORIZATIONPARAMS {
 	DWORD dwColor;
@@ -35,22 +35,6 @@ bool accentOpaqueAvailable;
 
 COLORREF _accentRgb;
 BOOL _accentOpaque;
-
-DWORD SetOpacity(DWORD color, float opacity) {
-	int alpha = (color >> 24) & 0xff;
-	int r = (color >> 16) & 0xff;
-	int g = (color >> 8) & 0xff;
-	int b = color & 0xff;
-
-	int newAlpha = ceil(alpha * opacity);
-
-	UINT newColor = r << 16;
-	newColor += g << 8;
-	newColor += b;
-	newColor += (newAlpha << 24);
-
-	return (DWORD)newColor;
-}
 
 void UpdateAccentColors()
 {
