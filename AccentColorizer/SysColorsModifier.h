@@ -1,4 +1,4 @@
 #pragma once
 #include "framework.h"
 
-void ModifySysColors();
+void ModifySysColors(COLORREF accentColor);

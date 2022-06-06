@@ -9,8 +9,8 @@ HANDLE hHandle;
 
 void ApplyAccentColorization() {
 	UpdateAccentColors();
-	ModifySysColors();
-	ModifyStyles();
+	ModifyStyles(accent);
+	if (accentOpaqueAvailable) ModifySysColors(accentOpaque);
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

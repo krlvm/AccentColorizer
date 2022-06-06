@@ -4,12 +4,7 @@
 
 const int size = 5;
 
-void ModifySysColors() {
-	if (!accentOpaqueAvailable)
-	{
-		return;
-	}
-
+void ModifySysColors(COLORREF accentColor) {
 	int aElements[size] =
 	{
 		COLOR_ACTIVECAPTION,
@@ -20,7 +15,7 @@ void ModifySysColors() {
 	};
 	DWORD aNewColors[size];
 
-	COLORREF color = RGB(GetRValue(accentOpaque), GetGValue(accentOpaque), GetBValue(accentOpaque));
+	COLORREF color = RGB(GetRValue(accentColor), GetGValue(accentColor), GetBValue(accentColor));
 	for (int i = 0; i < size; i++)
 	{
 		aNewColors[i] = color;

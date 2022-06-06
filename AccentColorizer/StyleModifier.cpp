@@ -4,20 +4,19 @@
 #include "AccentColorHelper.h"
 #include <VersionHelpers.h>
 
+int hsvAccentH;
+
 void StandardBitmapHandler(int* r, int* g, int* b, int* a) {
-    rgb rgbOriginal = { *r, *g, *b };
-    rgb rgbAccent = { GetRValue(accent), GetGValue(accent), GetBValue(accent) };
+    rgb rgbVal = { *r, *g, *b };
+    hsv hsvVal = rgb2hsv(rgbVal);
 
-    hsv hsvOriginal = rgb2hsv(rgbOriginal);
-    hsv hsvAccent = rgb2hsv(rgbAccent);
+    hsvVal.h = hsvAccentH;
 
-    hsvOriginal.h = hsvAccent.h;
+    rgbVal = hsv2rgb(hsvVal);
 
-    rgb rgbNew = hsv2rgb(hsvOriginal);
-
-    *r = rgbNew.r;
-    *g = rgbNew.g;
-    *b = rgbNew.b;
+    *r = rgbVal.r;
+    *g = rgbVal.g;
+    *b = rgbVal.b;
 }
 
 bool ModifyStyle(LPCWSTR pszClassList, int iPartId, int iStateId, int iPropId)
@@ -37,8 +36,6 @@ void ModifyStyles() {
     ModifyStyle(VSCLASS_BUTTON, BP_PUSHBUTTON, 0, TMT_DIBDATA);
     for (j = 1; j <= 7; j++) {
         ModifyStyle(VSCLASS_BUTTON, BP_CHECKBOX, 0, j);
-    }
-    for (j = 1; j <= 7; j++) {
         ModifyStyle(VSCLASS_BUTTON, BP_RADIOBUTTON, 0, j);
     }
     for (j = 1; j <= 3; j++) {
@@ -202,4 +199,13 @@ void ModifyStyles() {
         ModifyStyle(L"Menu", 8, 0, TMT_DIBDATA);
         ModifyStyle(L"Menu", 7, 0, TMT_DIBDATA);
     }
+}
+
+void ModifyStyles(COLORREF accentColor)
+{
+    rgb rgbAccent = { GetRValue(accentColor), GetGValue(accentColor), GetBValue(accentColor) };
+    hsv hsvAccent = rgb2hsv(rgbAccent);
+    hsvAccentH = hsvAccent.h;
+
+    ModifyStyles();
 }
