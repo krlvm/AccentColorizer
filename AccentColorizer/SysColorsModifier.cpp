@@ -15,9 +15,10 @@ void ModifySysColors(COLORREF accentColor) {
 	};
 	DWORD aNewColors[size];
 
+	COLORREF color = RGB(GetRValue(accentColor), GetGValue(accentColor), GetBValue(accentColor));
 	for (int i = 0; i < size; i++)
 	{
-		aNewColors[i] = accentColor;
+		aNewColors[i] = color;
 	}
 
 	SetSysColors(size, aElements, aNewColors);
