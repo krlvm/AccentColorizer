@@ -32,7 +32,7 @@ bool ModifyStyle(LPCWSTR pszClassList, int iPartId, int iStateId, int iPropId)
 }
 
 void ModifyStyles() {
-    int i, j;
+    int i, j, k;
 
     ModifyStyle(VSCLASS_BUTTON, BP_PUSHBUTTON, 0, TMT_DIBDATA);
     for (j = 1; j <= 7; j++) {
@@ -83,13 +83,19 @@ void ModifyStyles() {
         ModifyStyle(L"InfoPaneToolbar::Toolbar", i, 1, TMT_DIBDATA);
     }
     ModifyStyle(L"BreadcrumbBar", 1, 0, TMT_DIBDATA);
-    for (i = 2; i <= 6; i++)
+    for (i = 1; i <= 6; i++)
     {
-        ModifyStyle(L"Explorer::TreeView", 1, i, TMT_DIBDATA);
+        for (j = 1; j <= 2; j++)
+        {
+            ModifyStyle(L"Explorer::TreeView", i, j, TMT_DIBDATA);
+        }
     }
-    for (i = 2; i <= 6; i++)
+    for (i = 1; i <= 10; i++)
     {
-        ModifyStyle(L"Explorer::ListView", 1, i, TMT_DIBDATA);
+        for (j = 1; j <= 16; j++)
+        {
+            ModifyStyle(L"Explorer::ListView", i, j, TMT_DIBDATA);
+        }
     }
     ModifyStyle(L"PreviewPane", 1, 1, TMT_DIBDATA); // Windows Vista/7 Explorer Bottom Details Panel
 
@@ -106,7 +112,11 @@ void ModifyStyles() {
     }
     for (i = 1; i <= 16; i++)
     {
-        ModifyStyle(L"ItemsView::ListView", 6, i, TMT_DIBDATA); // Explorer File Selection
+        for (j = 1; j <= 16; j++)
+        {
+            ModifyStyle(L"ItemsView::Header", i, j, TMT_DIBDATA);
+            ModifyStyle(L"ItemsView::ListView", i, j, TMT_DIBDATA); // Explorer File Selection
+        }
     }
 
     for (i = 1; i <= 4; i++)
@@ -132,14 +142,6 @@ void ModifyStyles() {
 
     ModifyStyle(L"DragDrop", 7, 0, TMT_DIBDATA);
     ModifyStyle(L"Header", 1, 0, TMT_DIBDATA);
-
-    for (i = 0; i <= 3; i++)
-    {
-        for (j = 0; j <= 7; j++)
-        {
-            ModifyStyle(L"Navigation", i, j, j);
-        }
-    }
 
     for (j = 1; j <= 7; j++)
     {
@@ -167,6 +169,18 @@ void ModifyStyles() {
         ModifyStyle(L"Desktop::ListView", 1, j, TMT_DIBDATA); // Desktop icons
     }
 
+    for (i = 0; i <= 10; i++)
+    {
+        for (j = 0; j <= 10; j++)
+        {
+            for (int k = 0; k <= 10; k++)
+            {
+                ModifyStyle(L"TreeView", i, j, k);
+                ModifyStyle(L"Navigation", i, j, k);
+            }
+        }
+    }
+
     /** Tweaks for legacy components **/
 
     ModifyStyle(L"StartPanel", 1, 1, TMT_DIBDATA);
@@ -177,6 +191,7 @@ void ModifyStyles() {
     for (i = 1; i <= 38; i++)
     {
         ModifyStyle(L"StartPanelPriv", i, 0, TMT_DIBDATA);
+        ModifyStyle(L"StartPanelComposited::StartPanelPriv", i, 0, TMT_DIBDATA);
     }
 
     if (!IsWindows10OrGreater())
