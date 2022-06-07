@@ -116,6 +116,26 @@ void ModifyStyles() {
         }
     }
 
+    for (i = 8; i <= 9; i++)
+    {
+        for (j = 1; j <= 7; j++)
+        {
+            for (k = 1; k <= 7; k++)
+            {
+                ModifyStyle(L"ItemsView::ListView", i, j, k);
+                ModifyStyle(L"Explorer::ListView", i, j, k);
+                ModifyStyle(L"ListView", i, j, k);
+            }
+        }
+    }
+    for (j = 1; j <= 7; j++)
+    {
+        for (k = 1; k <= 7; k++)
+        {
+            ModifyStyle(L"Explorer::TreeView", 4, j, k);
+        }
+    }
+
     for (i = 1; i <= 4; i++)
     {
         ModifyStyle(L"BB::Toolbar", i, 0, TMT_DIBDATA); // Explorer Breadcrumbs Highlight color
@@ -153,12 +173,13 @@ void ModifyStyles() {
     for (i = 1; i <= 2; i++)
     {
         ModifyStyle(L"DatePicker", i, 0, 1);
+        ModifyStyle(L"DatePicker", i, 0, TMT_DIBDATA);
     }
 
     ModifyStyle(L"Rebar", 6, 0, 2);
     for (i = 4; i <= 6; i++) {
-        ModifyStyle(L"Rebar", i, 1, 2);
-        ModifyStyle(L"Rebar", i, 1, 2);
+        ModifyStyle(L"Rebar", i, 1, TMT_DIBDATA);
+        ModifyStyle(L"Rebar", i, 1, TMT_DIBDATA);
     }
     
     for (j = 0; j <= 9; j++)
@@ -198,6 +219,25 @@ void ModifyStyles() {
         ModifyStyle(L"Menu", 12, 0, TMT_DIBDATA);
         ModifyStyle(L"Menu", 8, 0, TMT_DIBDATA);
         ModifyStyle(L"Menu", 7, 0, TMT_DIBDATA);
+    }
+
+    if (!IsWindows8OrGreater())
+    {
+        for (i = 1; i <= 8; i++)
+        {
+            ModifyStyle(L"TaskDialog", 13, i, TMT_DIBDATA);
+        }
+        for (i = 1; i <= 7; i++)
+        {
+            for (j = 1; j <= 12; j++)
+            {
+                for (k = 1; k <= 7; k++)
+                {
+                    ModifyStyle(L"Header", i, j, k);
+                    ModifyStyle(L"ItemsView::Header", i, j, k);
+                }
+            }
+        }
     }
 }
 
