@@ -150,7 +150,8 @@ void ModifyStyles() {
     ModifyStyle(L"LVPopupBottom::Toolbar", 1, 1, TMT_DIBDATA);
 
     ModifyStyle(L"InactiveBB::Toolbar", 3, 1, TMT_DIBDATA);
-    for (j = 1; j <= 6; j++) {
+    for (j = 1; j <= 6; j++)
+    {
         ModifyStyle(L"InactiveBB::Toolbar", 4, j, j);
         ModifyStyle(L"InactiveBB::Toolbar", 4, j, TMT_DIBDATA);
         ModifyStyle(L"InactiveBBComposited::Toolbar", 4, j, j);
@@ -191,12 +192,33 @@ void ModifyStyles() {
     {
         for (j = 0; j <= 10; j++)
         {
-            for (int k = 0; k <= 10; k++)
+            for (k = 0; k <= 10; k++)
             {
                 ModifyStyle(L"TreeView", i, j, k);
                 ModifyStyle(L"Navigation", i, j, k);
             }
         }
+    }
+
+
+    for (j = 1; j <= 7; j++)
+    {
+        for (k = 1; k <= 7; k++)
+        {
+            ModifyStyle(L"SearchBox", 2, j, k);
+            ModifyStyle(L"SearchBoxComposited::SearchBox", 2, j, k);
+            ModifyStyle(L"SearchButton::Toolbar", 3, j, k);
+            ModifyStyle(L"SearchButton::Toolbar", 4, j, k);
+        }
+    }
+
+    if (!IsWindows10OrGreater())
+    {
+        ModifyStyle(L"Menu", 14, 0, TMT_DIBDATA);
+        ModifyStyle(L"Menu", 13, 0, TMT_DIBDATA);
+        ModifyStyle(L"Menu", 12, 0, TMT_DIBDATA);
+        ModifyStyle(L"Menu", 8, 0, TMT_DIBDATA);
+        ModifyStyle(L"Menu", 7, 0, TMT_DIBDATA);
     }
 
     /** Tweaks for legacy components **/
@@ -210,15 +232,6 @@ void ModifyStyles() {
     {
         ModifyStyle(L"StartPanelPriv", i, 0, TMT_DIBDATA);
         ModifyStyle(L"StartPanelComposited::StartPanelPriv", i, 0, TMT_DIBDATA);
-    }
-
-    if (!IsWindows10OrGreater())
-    {
-        ModifyStyle(L"Menu", 14, 0, TMT_DIBDATA);
-        ModifyStyle(L"Menu", 13, 0, TMT_DIBDATA);
-        ModifyStyle(L"Menu", 12, 0, TMT_DIBDATA);
-        ModifyStyle(L"Menu", 8, 0, TMT_DIBDATA);
-        ModifyStyle(L"Menu", 7, 0, TMT_DIBDATA);
     }
 
     if (!IsWindows8OrGreater())
