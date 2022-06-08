@@ -13,6 +13,12 @@ void ApplyAccentColorization() {
 	if (accentOpaqueAvailable) ModifySysColors(accentOpaque);
 }
 
+bool IsContextMenuNormalizerInstalled()
+{
+	return !(INVALID_FILE_ATTRIBUTES == GetFileAttributes(L"C:\\Windows\\ContextMenuNormalizer.exe")
+		&& GetLastError() == ERROR_FILE_NOT_FOUND);
+}
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (message == WM_DWMCOLORIZATIONCOLORCHANGED) {
@@ -32,6 +38,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		return 1;
 	}
 
+	colorizeMenus = !IsWindows10OrGreater() || !IsContextMenuNormalizerInstalled();
 	ApplyAccentColorization();
 
 	WNDCLASSEX wcex = {};

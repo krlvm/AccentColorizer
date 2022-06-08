@@ -5,6 +5,7 @@
 #include <VersionHelpers.h>
 
 int hsvAccentH;
+bool colorizeMenus;
 
 void StandardBitmapHandler(int* r, int* g, int* b, int* a) {
     rgb rgbVal = { *r, *g, *b };
@@ -212,7 +213,7 @@ void ModifyStyles() {
         }
     }
 
-    if (!IsWindows10OrGreater())
+    if (colorizeMenus)
     {
         ModifyStyle(L"Menu", 14, 0, TMT_DIBDATA);
         ModifyStyle(L"Menu", 13, 0, TMT_DIBDATA);
