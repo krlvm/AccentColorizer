@@ -17,10 +17,10 @@ struct DWMCOLORIZATIONPARAMS {
 static HRESULT(WINAPI* DwmGetColorizationParameters)(DWMCOLORIZATIONPARAMS* color);
 bool InitializeDwmApi()
 {
-    if (DwmGetColorizationParameters)
-    {
-        return TRUE;
-    }
+	if (DwmGetColorizationParameters)
+	{
+	    return TRUE;
+	}
 	HMODULE hDwmApi = LoadLibrary(L"dwmapi.dll");
 	if (!hDwmApi)
 	{

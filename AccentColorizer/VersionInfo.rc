@@ -13,6 +13,55 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
+// Neutral (Default) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUD)
+LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
+#pragma code_page(1251)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,1,5,0
+ PRODUCTVERSION 1,1,5,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040004b0"
+        BEGIN
+            VALUE "CompanyName", "krlvm"
+            VALUE "FileDescription", "AccentColorizer"
+            VALUE "FileVersion", "1.1.5.0"
+            VALUE "InternalName", "AccentColorizer.exe"
+            VALUE "LegalCopyright", "Copyright krlvm (C) 2021-2022"
+            VALUE "OriginalFilename", "AccentColorizer.exe"
+            VALUE "ProductName", "AccentColorizer"
+            VALUE "ProductVersion", "1.1.5.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x400, 1200
+    END
+END
+
+#endif    // Neutral (Default) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
 // Russian (Russia) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
@@ -43,45 +92,6 @@ BEGIN
 END
 
 #endif    // APSTUDIO_INVOKED
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Version
-//
-
-VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,4,0
- PRODUCTVERSION 1,1,4,0
- FILEFLAGSMASK 0x3fL
-#ifdef _DEBUG
- FILEFLAGS 0x1L
-#else
- FILEFLAGS 0x0L
-#endif
- FILEOS 0x40004L
- FILETYPE 0x1L
- FILESUBTYPE 0x0L
-BEGIN
-    BLOCK "StringFileInfo"
-    BEGIN
-        BLOCK "040004b0"
-        BEGIN
-            VALUE "CompanyName", "krlvm"
-            VALUE "FileDescription", "AccentColorizer"
-            VALUE "FileVersion", "1.1.4.0"
-            VALUE "InternalName", "AccentColorizer.exe"
-            VALUE "LegalCopyright", "Copyright krlvm (C) 2021-2022"
-            VALUE "OriginalFilename", "AccentColorizer.exe"
-            VALUE "ProductName", "AccentColorizer"
-            VALUE "ProductVersion", "1.1.4.0"
-        END
-    END
-    BLOCK "VarFileInfo"
-    BEGIN
-        VALUE "Translation", 0x400, 1200
-    END
-END
 
 #endif    // Russian (Russia) resources
 /////////////////////////////////////////////////////////////////////////////
