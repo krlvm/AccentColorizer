@@ -30,6 +30,7 @@ bool IsContextMenuNormalizerInstalled()
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (message == WM_DWMCOLORIZATIONCOLORCHANGED ||
+		message == WM_DPICHANGED ||
 		(message == WM_WTSSESSION_CHANGE && wParam == WTS_SESSION_UNLOCK))
 	{
 		ApplyAccentColorization();
