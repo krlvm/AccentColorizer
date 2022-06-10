@@ -7,10 +7,18 @@
 const LPCWSTR szWindowClass = L"ACCENTCOLORIZER";
 HANDLE hHandle;
 
+void ColorizeSystemColors()
+{
+	if (accentOpaqueAvailable) ModifySysColors(accentOpaque);
+}
+void ColorizeVisualStyles()
+{
+	ModifyStyles(accent);
+}
 void ApplyAccentColorization() {
 	UpdateAccentColors();
-	ModifyStyles(accent);
-	if (accentOpaqueAvailable) ModifySysColors(accentOpaque);
+	ColorizeSystemColors();
+	ColorizeVisualStyles();
 }
 
 bool IsContextMenuNormalizerInstalled()
@@ -21,7 +29,9 @@ bool IsContextMenuNormalizerInstalled()
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if (message == WM_DWMCOLORIZATIONCOLORCHANGED) {
+	if (message == WM_DWMCOLORIZATIONCOLORCHANGED ||
+		(message == WM_WTSSESSION_CHANGE && wParam == WTS_SESSION_UNLOCK))
+	{
 		ApplyAccentColorization();
 	}
 	return DefWindowProc(hWnd, message, wParam, lParam);
@@ -46,11 +56,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	wcex.lpfnWndProc = WndProc;
 	wcex.hInstance = hInstance;
 	wcex.lpszClassName = szWindowClass;
-	if (!RegisterClassEx(&wcex)) {
+	if (!RegisterClassEx(&wcex))
+	{
 		return 1;
 	}
 	HWND hwnd = CreateWindowEx(0, szWindowClass, nullptr, 0, 0, 0, 0, 0, nullptr, NULL, NULL, NULL);
-	if (!IsWindows8OrGreater()) {
+	if (!IsWindows8OrGreater())
+	{
 		SendMessageTimeout(HWND_BROADCAST, WM_DWMCOLORIZATIONCOLORCHANGED, _accentRgb, _accentOpaque, SMTO_NORMAL, 2000, nullptr);
 	}
 

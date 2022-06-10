@@ -59,6 +59,7 @@ bool RecolorizeBitmap(HBITMAP hbm, BitmapHandler handler) {
     }
 
     SetBitmapBits(hbm, bm.bmWidth * bm.bmHeight * 4, pBits);
+
     delete[] pBits;
     return TRUE;
 }
