@@ -172,10 +172,24 @@ void ModifyStyles() {
         ModifyStyle(L"Tab", i, 1, TMT_DIBDATA);
     }
 
+
+    // Explorer / Legacy Shell Date Picker
+    for (i = 1; i <= 4; i++)
+    {
+        ModifyStyle(VSCLASS_MONTHCAL, i, 0, TMT_DIBDATA);
+        ModifyStyle(VSCLASS_MONTHCAL, i, 1, TMT_DIBDATA);
+    }
+    for (j = 1; j <= 6; j++)
+    {
+        ModifyStyle(VSCLASS_MONTHCAL, MC_GRIDCELLBACKGROUND, j, TMT_DIBDATA);
+    }
     for (i = 1; i <= 2; i++)
     {
-        ModifyStyle(L"DatePicker", i, 0, 1);
-        ModifyStyle(L"DatePicker", i, 0, TMT_DIBDATA);
+        for (j = 0; j <= 1; j++)
+        {
+            ModifyStyle(L"DatePicker", i, j, 1);
+            ModifyStyle(L"DatePicker", i, j, TMT_DIBDATA);
+        }
     }
 
     ModifyStyle(L"Rebar", 6, 0, 2);
