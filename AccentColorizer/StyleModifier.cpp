@@ -251,6 +251,8 @@ void ModifyStyles() {
 
     /** Tweaks for legacy components **/
 
+    ModifyStyle(L"Communications::Rebar", 6, 0, TMT_DIBDATA);
+
     ModifyStyle(L"StartPanel", 1, 1, TMT_DIBDATA);
 
     ModifyStyle(L"StartMenu::Toolbar", 10, 1, TMT_DIBDATA);
