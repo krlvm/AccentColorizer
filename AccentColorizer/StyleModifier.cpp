@@ -222,6 +222,7 @@ void ModifyStyles() {
     {
         for (k = 1; k <= 7; k++)
         {
+            ModifyStyle(L"CopyClose", 1, j, k);
             ModifyStyle(L"SearchBox", 2, j, k);
             ModifyStyle(L"SearchBoxComposited::SearchBox", 2, j, k);
             ModifyStyle(L"SearchButton::Toolbar", 3, j, k);
