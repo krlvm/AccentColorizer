@@ -5,7 +5,9 @@
 #include <VersionHelpers.h>
 
 int hsvAccentH;
+
 bool colorizeMenus;
+bool colorizeProgressBar;
 
 void StandardBitmapHandler(int* r, int* g, int* b, int* a) {
     rgb rgbVal = { *r, *g, *b };
@@ -234,6 +236,17 @@ void ModifyStyles() {
         ModifyStyle(L"Menu", 12, 0, TMT_DIBDATA);
         ModifyStyle(L"Menu", 8, 0, TMT_DIBDATA);
         ModifyStyle(L"Menu", 7, 0, TMT_DIBDATA);
+    }
+
+    if (colorizeProgressBar)
+    {
+        for (i = 3; i <= 10; i++)
+        {
+            ModifyStyle(L"Progress", i, 1, TMT_DIBDATA);
+            ModifyStyle(L"Indeterminate::Progress", i, 1, TMT_DIBDATA);
+        }
+        ModifyStyle(L"Progress", 5, 4, TMT_DIBDATA);
+        ModifyStyle(L"AB::AddressBand", 1, 1, TMT_DIBDATA);
     }
 
     /** Tweaks for legacy components **/

@@ -2,9 +2,22 @@
 
 Colorize Windows with accent color of your choice - without modifying system files
 
-AccentColorizer patches Windows theme data in-memory and recolorizes everything as soon as you change the accent color
+AccentColorizer patches Windows theme data in-memory and recolorizes everything as soon as you change the accent color.
 
-Use in combination with [ContextMenuNormalizer](https://github.com/krlvm/ContextMenuNormalizer) to make context menus look more consistent on Windows 10
+Supported Windows Vista and higher.
+
+Use in combination with [ContextMenuNormalizer](https://github.com/krlvm/ContextMenuNormalizer) to make context menus look more consistent on Windows 10.
+
+### Progress Bar colorization
+
+AccentColorizer supports colorization of Progress Bars, but it is not recommended to enable, because it will make it difficult to distinguish between their states (progress bars may turn red to indicate an error, the disk full indicator turns red to indicate that space is running out). However, this is rarely used, and if you want to enable this feature, create the `HKEY_CURRENT_USER\Software\AccentColorizer` key in the registry and the DWORD value `ColorizeProgressBar`, set it to `1` and restart AccentColorizer.
+
+This can be done from command line:
+```
+reg add "HKEY_CURRENT_USER\SOFTWARE\AccentColorizer" /v ColorizeProgressBar /t REG_DWORD /d 1 /f
+```
+
+## Gallery
 
 ![Windows 11](https://github.com/krlvm/AccentColorizer/blob/master/.screenshots/win11.png?raw=true)\
 ![Windows 10](https://github.com/krlvm/AccentColorizer/blob/master/.screenshots/win10.png?raw=true)\

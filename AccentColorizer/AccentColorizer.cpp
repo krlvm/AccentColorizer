@@ -2,6 +2,7 @@
 #include "AccentColorHelper.h"
 #include "SysColorsModifier.h"
 #include "StyleModifier.h"
+#include "SettingsHelper.h"
 #include <VersionHelpers.h>
 
 const LPCWSTR szWindowClass = L"ACCENTCOLORIZER";
@@ -19,12 +20,6 @@ void ApplyAccentColorization() {
 	UpdateAccentColors();
 	ColorizeSystemColors();
 	ColorizeVisualStyles();
-}
-
-bool IsContextMenuNormalizerInstalled()
-{
-	return !(INVALID_FILE_ATTRIBUTES == GetFileAttributes(L"C:\\Windows\\ContextMenuNormalizer.exe")
-		&& GetLastError() == ERROR_FILE_NOT_FOUND);
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -49,7 +44,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		return 1;
 	}
 
-	colorizeMenus = !IsWindows10OrGreater() || !IsContextMenuNormalizerInstalled();
+	colorizeMenus = IsMenuColorizationEnabled();
+	colorizeProgressBar = IsProgressBarColorizationEnabled();
+
 	ApplyAccentColorization();
 
 	WNDCLASSEX wcex = {};

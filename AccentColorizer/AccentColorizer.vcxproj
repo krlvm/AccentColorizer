@@ -217,6 +217,7 @@
     <ClInclude Include="AccentColorizer.h" />
     <ClInclude Include="BitmapHelper.h" />
     <ClInclude Include="ColorHelper.h" />
+    <ClInclude Include="SettingsHelper.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="StyleModifier.h" />
     <ClInclude Include="SysColorsModifier.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="AccentColorizer.cpp" />
     <ClCompile Include="BitmapHelper.cpp" />
     <ClCompile Include="ColorHelper.cpp" />
+    <ClCompile Include="SettingsHelper.cpp" />
     <ClCompile Include="StyleModifier.cpp" />
     <ClCompile Include="SysColorsModifier.cpp" />
   </ItemGroup>
