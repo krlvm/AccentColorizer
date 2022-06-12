@@ -230,6 +230,13 @@ void ModifyStyles() {
         }
     }
 
+    // Taskbar Thumbnail Media Controls
+    for (i = 6; i <= 9; i++)
+    {
+        ModifyStyle(L"TaskbandExtendedUI", i, 0, TMT_DIBDATA);
+        ModifyStyle(L"TaskbandExtendedUI", i, 1, TMT_DIBDATA);
+    }
+
     if (colorizeMenus)
     {
         ModifyStyle(L"Menu", 14, 0, TMT_DIBDATA);
