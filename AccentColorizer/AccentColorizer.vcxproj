@@ -222,6 +222,7 @@
     <ClInclude Include="StyleModifier.h" />
     <ClInclude Include="SysColorsModifier.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="SystemHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AccentColorHelper.cpp" />
@@ -231,6 +232,7 @@
     <ClCompile Include="SettingsHelper.cpp" />
     <ClCompile Include="StyleModifier.cpp" />
     <ClCompile Include="SysColorsModifier.cpp" />
+    <ClCompile Include="SystemHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VersionInfo.rc" />

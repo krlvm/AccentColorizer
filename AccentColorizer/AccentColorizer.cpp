@@ -3,7 +3,7 @@
 #include "SysColorsModifier.h"
 #include "StyleModifier.h"
 #include "SettingsHelper.h"
-#include <VersionHelpers.h>
+#include "SystemHelper.h"
 
 const LPCWSTR szWindowClass = L"ACCENTCOLORIZER";
 HANDLE hHandle;
@@ -44,6 +44,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		return 1;
 	}
 
+	DetectWindowsVersion();
+
 	colorizeMenus = IsMenuColorizationEnabled();
 	colorizeProgressBar = IsProgressBarColorizationEnabled();
 
@@ -59,7 +61,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		return 1;
 	}
 	HWND hwnd = CreateWindowEx(0, szWindowClass, nullptr, 0, 0, 0, 0, 0, nullptr, NULL, NULL, NULL);
-	if (!IsWindows8OrGreater())
+	if (winver < 8)
 	{
 		SendMessageTimeout(HWND_BROADCAST, WM_DWMCOLORIZATIONCOLORCHANGED, _accentRgb, _accentOpaque, SMTO_NORMAL, 2000, nullptr);
 	}

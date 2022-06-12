@@ -2,7 +2,7 @@
 #include "BitmapHelper.h"
 #include "ColorHelper.h"
 #include "AccentColorHelper.h"
-#include <VersionHelpers.h>
+#include "SystemHelper.h"
 
 int hsvAccentH;
 
@@ -233,7 +233,7 @@ void ModifyStyles() {
     }
 
     // Taskbar Thumbnail Media Controls
-    for (i = 6; i <= 9; i++)
+    for (i = (winver >= 10 ? 6 : 8); i <= (winver >= 10 ? 9 : 11); i++)
     {
         ModifyStyle(L"TaskbandExtendedUI", i, 0, TMT_DIBDATA);
         ModifyStyle(L"TaskbandExtendedUI", i, 1, TMT_DIBDATA);
@@ -274,7 +274,7 @@ void ModifyStyles() {
         ModifyStyle(L"StartPanelComposited::StartPanelPriv", i, 0, TMT_DIBDATA);
     }
 
-    if (!IsWindows8OrGreater())
+    if (winver < 8)
     {
         for (i = 1; i <= 8; i++)
         {
