@@ -162,6 +162,8 @@ void ModifyStyles() {
     }
 
     ModifyStyle(L"DragDrop", 7, 0, TMT_DIBDATA);
+    ModifyStyle(L"DragDrop", 8, 0, TMT_DIBDATA);
+
     ModifyStyle(L"Header", 1, 0, TMT_DIBDATA);
 
     for (j = 1; j <= 7; j++)
