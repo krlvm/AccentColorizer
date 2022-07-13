@@ -2,10 +2,12 @@
 #include "ColorHelper.h"
 #include "AccentColorHelper.h"
 
-const int size = 5;
+#define SYS_COLORS_SIZE 5
 
-void ModifySysColors(COLORREF accentColor) {
-	int aElements[size] =
+void ModifySysColors(COLORREF dwAccentColor) {
+	int hsvAccentH = GetHSVh(dwAccentColor);
+
+	int aElements[SYS_COLORS_SIZE] =
 	{
 		COLOR_ACTIVECAPTION,
 		COLOR_GRADIENTACTIVECAPTION,
@@ -13,13 +15,21 @@ void ModifySysColors(COLORREF accentColor) {
 		COLOR_HOTLIGHT,
 		COLOR_MENUHILIGHT
 	};
-	DWORD aNewColors[size];
+	DWORD aNewColors[SYS_COLORS_SIZE];
 
-	COLORREF color = RGB(GetRValue(accentColor), GetGValue(accentColor), GetBValue(accentColor));
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < SYS_COLORS_SIZE; i++)
 	{
-		aNewColors[i] = color;
+		COLORREF dwCurrentColor = GetSysColor(aElements[i]);
+
+		rgb rgbVal = rgb{ (double)GetRValue(dwCurrentColor), (double)GetGValue(dwCurrentColor), (double)GetBValue(dwCurrentColor) };
+		hsv hsvVal = rgb2hsv(rgbVal);
+
+		hsvVal.h = hsvAccentH;
+
+		rgbVal = hsv2rgb(hsvVal);
+
+		aNewColors[i] = RGB(rgbVal.r, rgbVal.g, rgbVal.b);
 	}
 
-	SetSysColors(size, aElements, aNewColors);
+	SetSysColors(SYS_COLORS_SIZE, aElements, aNewColors);
 }

@@ -296,9 +296,7 @@ void ModifyStyles() {
 
 void ModifyStyles(COLORREF accentColor)
 {
-    rgb rgbAccent = { GetRValue(accentColor), GetGValue(accentColor), GetBValue(accentColor) };
-    hsv hsvAccent = rgb2hsv(rgbAccent);
-    hsvAccentH = hsvAccent.h;
+    hsvAccentH = GetHSVh(accentColor);
 
     ModifyStyles();
 }

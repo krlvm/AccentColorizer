@@ -15,3 +15,5 @@ typedef struct {
 
 hsv rgb2hsv(rgb in);
 rgb hsv2rgb(hsv in);
+
+int GetHSVh(COLORREF dwColor);

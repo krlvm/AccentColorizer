@@ -104,3 +104,14 @@ rgb hsv2rgb(hsv in)
 	}
 	return out;
 }
+
+int GetHSVh(COLORREF dwColor)
+{
+	rgb rgbVal = { 
+		(double)GetRValue(dwColor),
+		(double)GetGValue(dwColor),
+		(double)GetBValue(dwColor) 
+	};
+	hsv hsvVal = rgb2hsv(rgbVal);
+	return hsvVal.h;
+}

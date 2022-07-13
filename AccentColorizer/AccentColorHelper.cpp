@@ -30,9 +30,6 @@ bool InitializeDwmApi()
 	return TRUE;
 }
 
-#include <io.h>
-#include <fcntl.h>
-
 COLORREF accent;
 COLORREF accentOpaque;
 bool accentOpaqueAvailable;
