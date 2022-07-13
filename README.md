@@ -6,7 +6,10 @@ AccentColorizer patches Windows theme data in-memory and recolorizes everything 
 
 Supported Windows Vista and higher.
 
-Use in combination with [ContextMenuNormalizer](https://github.com/krlvm/ContextMenuNormalizer) to make context menus look more consistent on Windows 10.
+Additional functionality:
+* [AccentColorizer-E11](https://github.com/krlvm/AccentColorizer-E11) to colorize Windows 11 File Explorer icon glyphs
+* [ContextMenuNormalizer](https://github.com/krlvm/ContextMenuNormalizer) to make context menus look more consistent on Windows 10
+* [DragDropNormalizer](https://github.com/krlvm/DragDropNormalizer) to fix drag&drop overlay look on Windows 11 22H2
 
 ### Progress Bar colorization
 
