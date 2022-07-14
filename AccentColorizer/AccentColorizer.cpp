@@ -9,17 +9,33 @@ const LPCWSTR szWindowClass = L"ACCENTCOLORIZER";
 HANDLE hHandle;
 
 void ApplyAccentColorization() {
-	UpdateAccentColors();
+	if (!UpdateAccentColors())
+	{
+		// Accent Colors have not been changed.
+		// There's a bug in Windows 10 1809+ because of which
+		// WM_DWMCOLORIZATIONCOLORCHANGED message is sent multiple times,
+		// it also affects accent color changing performance in general.
+		// Apparently it is fixed in Windows 11 version 22H2
+		return;
+	}
 	ModifySysColors(accent);
 	ModifyStyles(accent);
 }
 
+#include <iostream>
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (message == WM_DWMCOLORIZATIONCOLORCHANGED ||
 		message == WM_DPICHANGED ||
-		(message == WM_WTSSESSION_CHANGE && wParam == WTS_SESSION_UNLOCK))
+		message == WM_THEMECHANGED ||
+		(message == WM_WTSSESSION_CHANGE && wParam == WTS_SESSION_UNLOCK)
+	)
 	{
+		if (message == WM_THEMECHANGED)
+		{
+			// We need to re-apply colorization if visual styles theme has been changed
+			accent = NULL;
+		}
 		ApplyAccentColorization();
 	}
 	return DefWindowProc(hWnd, message, wParam, lParam);

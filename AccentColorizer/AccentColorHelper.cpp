@@ -4,12 +4,20 @@
 
 COLORREF accent;
 
-void UpdateAccentColors()
+bool UpdateAccentColors()
 {
 	COLORREF dwAccentRGB;
 	BOOL bIsColorOpaque;
 
 	DwmGetColorizationColor(&dwAccentRGB, &bIsColorOpaque);
 
-	accent = RGB2BGR(dwAccentRGB);
+	DWORD dwAccent = RGB2BGR(dwAccentRGB);
+
+	if (accent == dwAccent)
+	{
+		return false;
+	}
+
+	accent = dwAccent;
+	return true;
 }

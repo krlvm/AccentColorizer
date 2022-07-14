@@ -3,4 +3,4 @@
 
 extern COLORREF accent;
 
-void UpdateAccentColors();
+bool UpdateAccentColors();
