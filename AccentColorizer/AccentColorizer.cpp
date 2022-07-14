@@ -8,18 +8,10 @@
 const LPCWSTR szWindowClass = L"ACCENTCOLORIZER";
 HANDLE hHandle;
 
-void ColorizeSystemColors()
-{
-	if (accentOpaqueAvailable) ModifySysColors(accentOpaque);
-}
-void ColorizeVisualStyles()
-{
-	ModifyStyles(accent);
-}
 void ApplyAccentColorization() {
 	UpdateAccentColors();
-	ColorizeSystemColors();
-	ColorizeVisualStyles();
+	ModifySysColors(accent);
+	ModifyStyles(accent);
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -60,10 +52,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	{
 		return 1;
 	}
-	HWND hwnd = CreateWindowEx(0, szWindowClass, nullptr, 0, 0, 0, 0, 0, nullptr, NULL, NULL, NULL);
+	HWND hWnd = CreateWindowEx(0, szWindowClass, nullptr, 0, 0, 0, 0, 0, nullptr, NULL, NULL, NULL);
+
 	if (winver < 8)
 	{
-		SendMessageTimeout(HWND_BROADCAST, WM_DWMCOLORIZATIONCOLORCHANGED, _accentRgb, _accentOpaque, SMTO_NORMAL, 2000, nullptr);
+		SendMessageTimeout(hWnd, WM_DWMCOLORIZATIONCOLORCHANGED, accent, accent, SMTO_NORMAL, 2000, nullptr);
 	}
 
 	MSG msg;
