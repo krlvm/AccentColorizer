@@ -22,7 +22,6 @@ void ApplyAccentColorization() {
 	ModifyStyles(accent);
 }
 
-#include <iostream>
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (message == WM_DWMCOLORIZATIONCOLORCHANGED ||
