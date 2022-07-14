@@ -25,8 +25,8 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,14,0
- PRODUCTVERSION 1,1,14,0
+ FILEVERSION 1,1,15,0
+ PRODUCTVERSION 1,1,15,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -43,12 +43,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "krlvm"
             VALUE "FileDescription", "AccentColorizer"
-            VALUE "FileVersion", "1.1.14.0"
+            VALUE "FileVersion", "1.1.15.0"
             VALUE "InternalName", "AccentColorizer.exe"
             VALUE "LegalCopyright", "Copyright krlvm (C) 2021-2022"
             VALUE "OriginalFilename", "AccentColorizer.exe"
             VALUE "ProductName", "AccentColorizer"
-            VALUE "ProductVersion", "1.1.14.0"
+            VALUE "ProductVersion", "1.1.15.0"
         END
     END
     BLOCK "VarFileInfo"
