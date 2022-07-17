@@ -30,9 +30,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		(message == WM_WTSSESSION_CHANGE && wParam == WTS_SESSION_UNLOCK)
 	)
 	{
-		if (message == WM_THEMECHANGED)
+		if (message != WM_DWMCOLORIZATIONCOLORCHANGED)
 		{
-			// We need to re-apply colorization if visual styles theme has been changed
+			// We need to re-apply colorization completely because:
+			//  a) DPI changed
+			//  b) Visual Theme has been changed, and bitmaps were reset
+			//  c) Another user was probably logged in, and we need to override the colors and bitmaps
+			//  d) Device was turned on after sleep, and colors and bitmaps probably were reset
 			accent = NULL;
 		}
 		ApplyAccentColorization();
