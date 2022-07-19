@@ -1,5 +1,4 @@
 #include "AccentColorHelper.h"
-#include <dwmapi.h>
 #include "ColorHelper.h"
 
 COLORREF accent;

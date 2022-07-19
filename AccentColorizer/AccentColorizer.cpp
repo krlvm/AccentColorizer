@@ -71,7 +71,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	{
 		return 1;
 	}
+
 	HWND hWnd = CreateWindowEx(0, szWindowClass, nullptr, 0, 0, 0, 0, 0, nullptr, NULL, NULL, NULL);
+	WTSRegisterSessionNotification(hWnd, NOTIFY_FOR_THIS_SESSION);
 
 	if (winver < 8)
 	{
