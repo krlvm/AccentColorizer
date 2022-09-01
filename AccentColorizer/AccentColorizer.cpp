@@ -6,9 +6,10 @@
 #include "SystemHelper.h"
 
 const LPCWSTR szWindowClass = L"ACCENTCOLORIZER";
-HANDLE hHandle;
+HANDLE hMutex;
 
-void ApplyAccentColorization() {
+void ApplyAccentColorization()
+{
 	if (!UpdateAccentColors())
 	{
 		// Accent Colors have not been changed.
@@ -49,8 +50,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ LPWSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
-	hHandle = CreateMutex(NULL, TRUE, szWindowClass);
-	if (!hHandle || ERROR_ALREADY_EXISTS == GetLastError())
+	hMutex = CreateMutex(NULL, TRUE, szWindowClass);
+	if (!hMutex || ERROR_ALREADY_EXISTS == GetLastError())
 	{
 		return 1;
 	}
@@ -61,6 +62,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	colorizeProgressBar = IsProgressBarColorizationEnabled();
 
 	ApplyAccentColorization();
+	if (winver < 8)
+	{
+		accent = NULL;
+	}
 
 	WNDCLASSEX wcex = {};
 	wcex.cbSize = sizeof(WNDCLASSEX);
@@ -87,8 +92,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		DispatchMessage(&msg);
 	}
 
-	ReleaseMutex(hHandle);
-	CloseHandle(hHandle);
+	ReleaseMutex(hMutex);
+	CloseHandle(hMutex);
 
 	return (int)msg.wParam;
 }
