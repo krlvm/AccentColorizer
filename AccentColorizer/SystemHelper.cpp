@@ -1,24 +1,24 @@
 #include "SystemHelper.h"
 #include <VersionHelpers.h>
 
-int winver;
+WINDOWSVERSION g_winver;
 
 void DetectWindowsVersion()
 {
 	if (IsWindows10OrGreater())
 	{
-		winver = 10;
+		g_winver = WIN_10;
 	}
 	else if (IsWindows8OrGreater())
 	{
-		winver = 8;
+		g_winver = WIN_8;
 	}
 	else if (IsWindows7OrGreater())
 	{
-		winver = 7;
+		g_winver = WIN_7;
 	}
 	else
 	{
-		winver = 6;
+		g_winver = WIN_VISTA;
 	}
 }

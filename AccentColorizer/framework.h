@@ -5,9 +5,7 @@
 
 #include <windows.h>
 
-#include <sstream>
 #include <shellapi.h>
-#include <iostream>
 #include <Uxtheme.h>
 #include <vsstyle.h>
 #include <vssym32.h>

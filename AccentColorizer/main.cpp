@@ -1,4 +1,3 @@
-#include "AccentColorizer.h"
 #include "AccentColorHelper.h"
 #include "SysColorsModifier.h"
 #include "StyleModifier.h"
@@ -19,8 +18,8 @@ void ApplyAccentColorization()
 		// Apparently it is fixed in Windows 11 version 22H2
 		return;
 	}
-	ModifySysColors(accent);
-	ModifyStyles(accent);
+	ModifySysColors(g_dwAccent);
+	ModifyStyles(g_dwAccent);
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -38,7 +37,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			//  b) Visual Theme has been changed, and bitmaps were reset
 			//  c) Another user was probably logged in, and we need to override the colors and bitmaps
 			//  d) Device was turned on after sleep, and colors and bitmaps probably were reset
-			accent = NULL;
+			g_dwAccent = NULL;
 		}
 		ApplyAccentColorization();
 	}
@@ -58,13 +57,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	DetectWindowsVersion();
 
-	colorizeMenus = IsMenuColorizationEnabled();
-	colorizeProgressBar = IsProgressBarColorizationEnabled();
+	g_bColorizeMenus = IsMenuColorizationEnabled();
+	g_bColorizeProgressBar = IsProgressBarColorizationEnabled();
 
 	ApplyAccentColorization();
-	if (winver < 8)
+	if (g_winver < WIN_8)
 	{
-		accent = NULL;
+		g_dwAccent = NULL;
 	}
 
 	WNDCLASSEX wcex = {};
@@ -80,9 +79,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	HWND hWnd = CreateWindowEx(0, szWindowClass, nullptr, 0, 0, 0, 0, 0, nullptr, NULL, NULL, NULL);
 	WTSRegisterSessionNotification(hWnd, NOTIFY_FOR_THIS_SESSION);
 
-	if (winver < 8)
+	if (g_winver < WIN_8)
 	{
-		SendMessageTimeout(hWnd, WM_DWMCOLORIZATIONCOLORCHANGED, accent, accent, SMTO_NORMAL, 2000, nullptr);
+		SendMessageTimeout(hWnd, WM_DWMCOLORIZATIONCOLORCHANGED, g_dwAccent, g_dwAccent, SMTO_NORMAL, 2000, nullptr);
 	}
 
 	MSG msg;

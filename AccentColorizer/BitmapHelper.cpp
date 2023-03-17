@@ -30,7 +30,7 @@ bool RecolorizeBitmap(HBITMAP hbm, BitmapHandler handler) {
 
     if (!hbm || bm.bmBitsPixel != 32)
     {
-        return FALSE;
+        return false;
     }
 
     BYTE* pBits = new BYTE[bm.bmWidth * bm.bmHeight * 4];
@@ -38,7 +38,7 @@ bool RecolorizeBitmap(HBITMAP hbm, BitmapHandler handler) {
 
     for (int y = 0; y < bm.bmHeight; y++)
     {
-        BYTE* pPixel = (BYTE*)pBits + bm.bmWidth * 4 * y;
+        BYTE* pPixel = pBits + bm.bmWidth * 4 * y;
 
         for (int x = 0; x < bm.bmWidth; x++)
         {
@@ -47,7 +47,7 @@ bool RecolorizeBitmap(HBITMAP hbm, BitmapHandler handler) {
             int b = PixB(pPixel); // [0]
             int a = PixA(pPixel); // [3]
 
-            handler(&r, &g, &b, &a);
+            handler(r, g, b, a);
 
             pPixel[2] = r;
             pPixel[1] = g;
@@ -61,5 +61,5 @@ bool RecolorizeBitmap(HBITMAP hbm, BitmapHandler handler) {
     SetBitmapBits(hbm, bm.bmWidth * bm.bmHeight * 4, pBits);
 
     delete[] pBits;
-    return TRUE;
+    return true;
 }

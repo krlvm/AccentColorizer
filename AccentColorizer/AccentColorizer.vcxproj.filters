@@ -4,7 +4,7 @@
     <ClCompile Include="AccentColorHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AccentColorizer.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BitmapHelper.cpp">
@@ -28,9 +28,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccentColorHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AccentColorizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BitmapHelper.h">

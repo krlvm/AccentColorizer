@@ -28,7 +28,7 @@ hsv rgb2hsv(rgb in)
 		// if max is 0, then r = g = b = 0              
 		// s = 0, h is undefined
 		out.s = 0.0;
-		out.h = NAN;                            // its now undefined
+		//out.h = NAN;                            // its now undefined
 		return out;
 	}
 	if (in.r >= max)                           // > is bogus, just keeps compilor happy
@@ -107,11 +107,11 @@ rgb hsv2rgb(hsv in)
 
 int GetHSVh(COLORREF dwColor)
 {
-	rgb rgbVal = { 
+	return rgb2hsv(
+		{
 		(double)GetRValue(dwColor),
 		(double)GetGValue(dwColor),
-		(double)GetBValue(dwColor) 
-	};
-	hsv hsvVal = rgb2hsv(rgbVal);
-	return hsvVal.h;
+		(double)GetBValue(dwColor)
+		}
+	).h;
 }

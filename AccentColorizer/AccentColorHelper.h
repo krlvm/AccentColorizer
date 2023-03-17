@@ -1,6 +1,6 @@
 #pragma once
 #include "framework.h"
 
-extern COLORREF accent;
+extern COLORREF g_dwAccent;
 
 bool UpdateAccentColors();

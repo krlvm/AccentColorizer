@@ -1,7 +1,7 @@
 #include "AccentColorHelper.h"
 #include "ColorHelper.h"
 
-COLORREF accent;
+COLORREF g_dwAccent;
 
 bool UpdateAccentColors()
 {
@@ -12,11 +12,11 @@ bool UpdateAccentColors()
 
 	DWORD dwAccent = RGB2BGR(dwAccentRGB);
 
-	if (accent == dwAccent)
+	if (g_dwAccent == dwAccent)
 	{
 		return false;
 	}
 
-	accent = dwAccent;
+	g_dwAccent = dwAccent;
 	return true;
 }

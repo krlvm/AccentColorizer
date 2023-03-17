@@ -1,4 +1,5 @@
 #include "SettingsHelper.h"
+#include "SystemHelper.h"
 #include <VersionHelpers.h>
 
 bool IsRegistryValueEnabled(LPCWSTR key, LPCWSTR value)
@@ -11,7 +12,7 @@ bool IsRegistryValueEnabled(LPCWSTR key, LPCWSTR value)
 
     if (!hKey)
     {
-        return FALSE;
+        return false;
     }
 
     DWORD dwBufferSize(sizeof(DWORD));
@@ -24,15 +25,16 @@ bool IsRegistryValueEnabled(LPCWSTR key, LPCWSTR value)
 
     RegCloseKey(hKey);
 
-    return ERROR_SUCCESS == nError ? nResult : FALSE;
+    return ERROR_SUCCESS == nError ? nResult : false;
 }
 
 bool IsMenuColorizationEnabled()
 {
-    if (!IsWindows10OrGreater())
+    if (g_winver < WIN_10)
     {
-        return TRUE;
+        return true;
     }
+
     return INVALID_FILE_ATTRIBUTES == GetFileAttributes(L"C:\\Windows\\ContextMenuNormalizer.exe")
         && GetLastError() == ERROR_FILE_NOT_FOUND;
 }

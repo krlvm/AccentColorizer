@@ -1,7 +1,7 @@
 #pragma once
 #include "framework.h"
 
-extern bool colorizeMenus;
-extern bool colorizeProgressBar;
+extern bool g_bColorizeMenus;
+extern bool g_bColorizeProgressBar;
 
 void ModifyStyles(COLORREF accentColor);
