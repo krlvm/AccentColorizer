@@ -1,5 +1,6 @@
 #pragma once
 #include "framework.h"
 
-typedef void (*BitmapHandler)(int& r, int& g, int& b, int& a);
-bool RecolorizeBitmap(HBITMAP hbm, BitmapHandler handler);
+typedef void (*BitmapPixelHandler)(int& r, int& g, int& b, int& a);
+
+bool IterateBitmap(HBITMAP hbm, BitmapPixelHandler handler);

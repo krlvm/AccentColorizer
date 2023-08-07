@@ -1,30 +1,7 @@
 #include "BitmapHelper.h"
 
-#pragma region Pixel Color
-inline int PixClr(int val)
+bool IterateBitmap(HBITMAP hbm, BitmapPixelHandler handler)
 {
-    return val & 0xFFFFFF;
-}
-
-inline int PixR(BYTE* pPixel)
-{
-    return PixClr(pPixel[2]);
-}
-inline int PixG(BYTE* pPixel)
-{
-    return PixClr(pPixel[1]);
-}
-inline int PixB(BYTE* pPixel)
-{
-    return PixClr(pPixel[0]);
-}
-inline int PixA(BYTE* pPixel)
-{
-    return PixClr(pPixel[3]);
-}
-#pragma endregion
-
-bool RecolorizeBitmap(HBITMAP hbm, BitmapHandler handler) {
     BITMAP bm;
     GetObject(hbm, sizeof(bm), &bm);
 
@@ -36,16 +13,20 @@ bool RecolorizeBitmap(HBITMAP hbm, BitmapHandler handler) {
     BYTE* pBits = new BYTE[bm.bmWidth * bm.bmHeight * 4];
     GetBitmapBits(hbm, bm.bmWidth * bm.bmHeight * 4, pBits);
 
-    for (int y = 0; y < bm.bmHeight; y++)
-    {
-        BYTE* pPixel = pBits + bm.bmWidth * 4 * y;
+    BYTE* pPixel;
+    int x, y;
+    int r, g, b, a;
 
-        for (int x = 0; x < bm.bmWidth; x++)
+    for (y = 0; y < bm.bmHeight; y++)
+    {
+        pPixel = pBits + bm.bmWidth * 4 * y;
+
+        for (x = 0; x < bm.bmWidth; x++)
         {
-            int r = PixR(pPixel); // [2]
-            int g = PixG(pPixel); // [1]
-            int b = PixB(pPixel); // [0]
-            int a = PixA(pPixel); // [3]
+            r = pPixel[2] & 0xFFFFFF;
+            g = pPixel[1] & 0xFFFFFF;
+            b = pPixel[0] & 0xFFFFFF;
+            a = pPixel[3] & 0xFFFFFF;
 
             handler(r, g, b, a);
 

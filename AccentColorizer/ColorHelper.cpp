@@ -1,10 +1,16 @@
 #include "ColorHelper.h"
 
+DWORD rgb2bgr(COLORREF color)
+{
+	return (color & 0xFF000000) | ((color & 0xFF0000) >> 16) | (color & 0x00FF00) | ((color & 0x0000FF) << 16);
+}
+
+
 // https://stackoverflow.com/a/6930407
 
-hsv rgb2hsv(rgb in)
+hsv_t rgb2hsv(rgb_t in)
 {
-	hsv         out;
+	hsv_t       out;
 	double      min, max, delta;
 
 	min = in.r < in.g ? in.r : in.g;
@@ -47,11 +53,11 @@ hsv rgb2hsv(rgb in)
 	return out;
 }
 
-rgb hsv2rgb(hsv in)
+rgb_t hsv2rgb(hsv_t in)
 {
 	double      hh, p, q, t, ff;
 	long        i;
-	rgb         out;
+	rgb_t       out;
 
 	if (in.s <= 0.0) {       // < is bogus, just shuts up warnings
 		out.r = in.v;
@@ -103,15 +109,4 @@ rgb hsv2rgb(hsv in)
 		break;
 	}
 	return out;
-}
-
-int GetHSVh(COLORREF dwColor)
-{
-	return rgb2hsv(
-		{
-		(double)GetRValue(dwColor),
-		(double)GetGValue(dwColor),
-		(double)GetBValue(dwColor)
-		}
-	).h;
 }

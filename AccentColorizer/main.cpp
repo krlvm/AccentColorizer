@@ -4,12 +4,12 @@
 #include "SettingsHelper.h"
 #include "SystemHelper.h"
 
-const LPCWSTR szWindowClass = L"ACCENTCOLORIZER";
+constexpr LPCWSTR szWindowClass = L"ACCENTCOLORIZER";
 HANDLE hMutex;
 
 void ApplyAccentColorization()
 {
-	if (!UpdateAccentColors())
+	if (!UpdateAccentColor())
 	{
 		// Accent Colors have not been changed.
 		// There's a bug in Windows 10 1809+ because of which
@@ -18,8 +18,8 @@ void ApplyAccentColorization()
 		// Apparently it is fixed in Windows 11 version 22H2
 		return;
 	}
-	ModifySysColors(g_dwAccent);
-	ModifyStyles(g_dwAccent);
+	ModifySysColors();
+	ModifyStyles();
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -73,7 +73,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	wcex.lpszClassName = szWindowClass;
 	if (!RegisterClassEx(&wcex))
 	{
-		return 1;
+		return 2;
 	}
 
 	HWND hWnd = CreateWindowEx(0, szWindowClass, nullptr, 0, 0, 0, 0, 0, nullptr, NULL, NULL, NULL);

@@ -2,15 +2,16 @@
 #include "ColorHelper.h"
 
 COLORREF g_dwAccent;
+int g_hsvAccentH;
 
-bool UpdateAccentColors()
+bool UpdateAccentColor()
 {
 	COLORREF dwAccentRGB;
 	BOOL bIsColorOpaque;
 
 	DwmGetColorizationColor(&dwAccentRGB, &bIsColorOpaque);
 
-	DWORD dwAccent = RGB2BGR(dwAccentRGB);
+	DWORD dwAccent = rgb2bgr(dwAccentRGB);
 
 	if (g_dwAccent == dwAccent)
 	{
@@ -18,5 +19,10 @@ bool UpdateAccentColors()
 	}
 
 	g_dwAccent = dwAccent;
+	g_hsvAccentH = rgb2hsv({
+		(double) GetRValue(dwAccent) / 255,
+		(double) GetGValue(dwAccent) / 255,
+		(double) GetBValue(dwAccent) / 255 }).h;
+
 	return true;
 }

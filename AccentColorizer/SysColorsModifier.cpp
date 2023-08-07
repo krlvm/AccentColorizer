@@ -2,32 +2,35 @@
 #include "ColorHelper.h"
 #include "AccentColorHelper.h"
 
-const int aSysElements[] = {
+constexpr int aSysElements[] = {
 	COLOR_ACTIVECAPTION,
 	COLOR_GRADIENTACTIVECAPTION,
 	COLOR_HIGHLIGHT,
 	COLOR_HOTLIGHT,
 	COLOR_MENUHILIGHT
 };
-const size_t nSysElements = sizeof(aSysElements) / sizeof(*aSysElements);
+constexpr size_t nSysElements = sizeof(aSysElements) / sizeof(*aSysElements);
 
-void ModifySysColors(COLORREF dwAccentColor) {
-	int hsvAccentH = GetHSVh(dwAccentColor);
-
+void ModifySysColors()
+{
 	DWORD aNewColors[nSysElements];
+
+	COLORREF dwCurrentColor;
+	rgb_t rgbVal;
+	hsv_t hsvVal;
 
 	for (int i = 0; i < nSysElements; i++)
 	{
-		COLORREF dwCurrentColor = GetSysColor(aSysElements[i]);
+		dwCurrentColor = GetSysColor(aSysElements[i]);
 
-		rgb rgbVal = rgb{
+		rgbVal = {
 			(double)GetRValue(dwCurrentColor),
 			(double)GetGValue(dwCurrentColor),
 			(double)GetBValue(dwCurrentColor)
 		};
-		hsv hsvVal = rgb2hsv(rgbVal);
+		hsvVal = rgb2hsv(rgbVal);
 
-		hsvVal.h = hsvAccentH;
+		hsvVal.h = g_hsvAccentH;
 
 		rgbVal = hsv2rgb(hsvVal);
 

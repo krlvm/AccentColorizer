@@ -4,4 +4,4 @@
 extern bool g_bColorizeMenus;
 extern bool g_bColorizeProgressBar;
 
-void ModifyStyles(COLORREF accentColor);
+void ModifyStyles();

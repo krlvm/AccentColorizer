@@ -1,5 +1,6 @@
 #include "SettingsHelper.h"
 #include "SystemHelper.h"
+
 #include <VersionHelpers.h>
 
 bool IsRegistryValueEnabled(LPCWSTR key, LPCWSTR value)
