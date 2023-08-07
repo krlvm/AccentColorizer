@@ -246,6 +246,15 @@ void ModifyStyles() {
 		ModifyStyle(L"Menu", 12, 0, TMT_DIBDATA);
 		ModifyStyle(L"Menu", 8, 0, TMT_DIBDATA);
 		ModifyStyle(L"Menu", 7, 0, TMT_DIBDATA);
+
+		// Menu Checkbox
+		for (j = 0; j <= 7; j++)
+		{
+			for (k = 0; k <= 7; k++)
+			{
+				ModifyStyle(L"Menu", 11, j, k);
+			}
+		}
 	}
 
 	if (g_bColorizeProgressBar)
