@@ -18,6 +18,7 @@ void ApplyAccentColorization()
 		// Apparently it is fixed in Windows 11 version 22H2
 		return;
 	}
+
 	ModifySysColors();
 	ModifyStyles();
 }

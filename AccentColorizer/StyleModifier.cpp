@@ -399,13 +399,27 @@ void ModifyStyles()
 	}
 
 
+	/////////////////////////////////////////////////////
 	SetCurrentTheme(L"Rebar");
 	//
-	ModifyStyle(6, 0, 2);
+	ModifyStyle(6, 0, TMT_DIBDATA);
 	for (i = 4; i <= 6; i++) {
 		ModifyStyle(i, 1, TMT_DIBDATA);
 		ModifyStyle(i, 1, TMT_DIBDATA);
 	}
+
+
+	SetCurrentTheme(L"Navbar::Rebar");
+	//
+	ModifyStyle(6, 0, TMT_DIBDATA);
+	ModifyStyle(6, 1, TMT_DIBDATA);
+
+
+	SetCurrentTheme(L"InactiveNavbar::Rebar");
+	//
+	ModifyStyle(6, 0, TMT_DIBDATA);
+	ModifyStyle(6, 1, TMT_DIBDATA);
+	/////////////////////////////////////////////////////
 
 
 	SetCurrentTheme(L"Desktop::ListView");
@@ -628,6 +642,45 @@ void ModifyStyles()
 				ModifyStyle(i, 0, k);
 			}
 		}
+
+		//
+		// Aero Basic
+		//
+
+
+		SetCurrentTheme(L"TaskBar2::TaskBar");
+		//
+		for (i = 1; i <= 8; i++)
+		{
+			ModifyStyle(i, 0, 0);
+		}
+
+
+		SetCurrentTheme(L"AltTab");
+		//
+		for (i = 1; i <= 11; i++)
+		{
+			ModifyStyle(i, 0, TMT_DIBDATA);
+		}
+
+
+		SetCurrentTheme(L"BasicMenuMode::TaskbandExtendedUI");
+		//
+		ModifyStyle(1, 0, 0);
+
+
+		SetCurrentTheme(L"Window");
+		//
+		for (i = 1; i <= 13; i++)
+		{
+			ModifyStyle(i, 0, 0);
+		}
+		ModifyStyle(15, 4, 0);
+		ModifyStyle(17, 4, 0);
+		ModifyStyle(18, 4, 0);
+		ModifyStyle(19, 4, 0);
+		ModifyStyle(21, 4, 0);
+		ModifyStyle(23, 4, 0);
 	}
 
 	//
